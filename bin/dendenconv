@@ -1,0 +1,16 @@
+#!/usr/bin/env php
+<?php
+require_once(dirname(__FILE__) . '/../vendor/autoload.php');
+
+if ($argc > 1) {
+    $parser = new Denshoch\DenDenMarkdown;
+    for ($i = 1; $i < $argc; ++$i) {
+        if (!file_exists($argv[$i])) {
+            trigger_error($argv[$i] . ' does not exist.', E_USER_ERROR);
+            exit(1);
+        }
+        echo $parser->transform(file_get_contents($argv[$i]));
+    }
+} else {
+    echo "Usage: $argv[0] [file1, file2...]\n";
+}
